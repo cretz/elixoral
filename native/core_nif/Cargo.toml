@@ -1,0 +1,21 @@
+[package]
+name = "core_nif"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "core_nif"
+crate-type = ["dylib"]
+
+[dependencies]
+log = "0.4"
+prost = "0.9"
+rustler = "0.23.0"
+# TODO(cretz): Fix bug in Rustler where I can't have these local
+# temporal-sdk-core = { version = "0.1", path = "../sdk-core/core" }
+# temporal-sdk-core-api = { version = "0.1", path = "../sdk-core/core-api" }
+# temporal-sdk-core-protos = { version = "0.1", path = "../sdk-core/sdk-core-protos" }
+temporal-sdk-core = { git = "https://github.com/temporalio/sdk-core", rev = "f678453" }
+temporal-sdk-core-api = { git = "https://github.com/temporalio/sdk-core", rev = "f678453" }
+temporal-sdk-core-protos = { git = "https://github.com/temporalio/sdk-core", rev = "f678453" }
+tokio = "1"
