@@ -7,8 +7,7 @@ defmodule Elixoral.MixProject do
       version: "0.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
-      deps: deps(),
-      rustler_crates: rustler_crates()
+      deps: deps()
     ]
   end
 
@@ -22,15 +21,10 @@ defmodule Elixoral.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:google_protos, "~> 0.2.0"},
+      {:grpc, "~> 0.3.1"},
+      {:protobuf, "~> 0.9.0"},
       {:rustler, "~> 0.23.0"}
-    ]
-  end
-
-  defp rustler_crates do
-    [
-      core_nif: [
-        path: "native/core_nif"
-      ]
     ]
   end
 end
