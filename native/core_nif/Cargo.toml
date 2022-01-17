@@ -19,3 +19,6 @@ temporal-sdk-core = { git = "https://github.com/temporalio/sdk-core", rev = "f67
 temporal-sdk-core-api = { git = "https://github.com/temporalio/sdk-core", rev = "f678453" }
 temporal-sdk-core-protos = { git = "https://github.com/temporalio/sdk-core", rev = "f678453" }
 tokio = "1"
+
+[target.x86_64-pc-windows-msvc] 
+rustflags = ["-Zshare-generics=off"]
