@@ -18,8 +18,8 @@ pub fn runtime_new() -> rustler::ResourceArc<Runtime> {
 }
 
 #[derive(Debug, rustler::NifStruct)]
-#[module = "Elixir.Temporal.Core.Native.CoreInitOptions"]
-pub struct CoreInitOptions {
+#[module = "Elixir.Temporal.Core.Native.CoreRuntimeOptions"]
+pub struct CoreRuntimeOptions {
     pub target_url: String,
     pub namespace: String,
     pub client_name: String,
@@ -29,10 +29,10 @@ pub struct CoreInitOptions {
     // TODO(cretz): More options
 }
 
-impl TryFrom<CoreInitOptions> for temporal_sdk_core::CoreInitOptions {
+impl TryFrom<CoreRuntimeOptions> for temporal_sdk_core::CoreInitOptions {
     type Error = String;
 
-    fn try_from(opts: CoreInitOptions) -> Result<Self, Self::Error> {
+    fn try_from(opts: CoreRuntimeOptions) -> Result<Self, Self::Error> {
         temporal_sdk_core::CoreInitOptionsBuilder::default()
             .gateway_opts(
                 temporal_sdk_core::ServerGatewayOptionsBuilder::default()
@@ -95,11 +95,11 @@ enum MessageForm {
 }
 
 #[rustler::nif]
-pub fn core_start(
+pub fn core_runtime_start(
     env: rustler::Env,
     runtime: rustler::ResourceArc<Runtime>,
     req_id: u64,
-    opts: CoreInitOptions,
+    opts: CoreRuntimeOptions,
 ) -> rustler::NifResult<rustler::ResourceArc<CoreRuntime>> {
     let opts = opts
         .try_into()

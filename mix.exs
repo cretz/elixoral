@@ -21,10 +21,13 @@ defmodule Elixoral.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:cowlib, "~> 2.9.0", override: true},
       {:google_protos, "~> 0.2.0"},
-      {:grpc, "~> 0.3.1"},
+      # {:grpc, "~> 0.3.1"},
+      {:grpc, github: "elixir-grpc/grpc"},
       {:protobuf, "~> 0.9.0"},
-      {:rustler, "~> 0.23.0"}
+      {:rustler, "~> 0.23.0"},
+      { :elixir_uuid, "~> 1.2" }
     ]
   end
 end
