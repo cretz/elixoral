@@ -2,28 +2,27 @@ defmodule Temporal.Examples.HelloWorldRaw do
   require Logger
 
   def run() do
-    {:ok, client} = Temporal.Client.connect("localhost:7233")
+    {:ok, client} = Temporal.Client.connect(%Temporal.Client.ConnectOptions{addr: "localhost:7233"})
 
     task_queue = "my-queue-#{UUID.uuid4()}"
-    Logger.info("Starting worker on task queue #{task_queue}")
+    # Logger.info("Starting worker on task queue #{task_queue}")
 
-    {:ok, worker_pid} =
-      Temporal.Worker.start(%Temporal.Worker.Options{
-        client: client,
-        task_queue: task_queue,
-        workflows: [&WorkflowRaw.run/1]
-      })
+    # {:ok, worker_pid} =
+    #   Temporal.Worker.start(%Temporal.Worker.Options{
+    #     client: client,
+    #     task_queue: task_queue,
+    #     workflows: [&WorkflowRaw.run/1]
+    #   })
 
     workflow_id = "my-workflow-#{UUID.uuid4()}"
     Logger.info("Starting workflow #{workflow_id} on task queue #{task_queue}")
 
     {:ok, execution} =
-      Temporal.Client.start_workflow(%Temporal.Client.StartWorkflowOptions{
-        client: client,
-        task_queue: task_queue,
+      client |> Temporal.Client.start_workflow(%Temporal.Client.StartWorkflowOptions{
         workflow: &WorkflowRaw.run/1,
-        args: ["Hello"],
-        workflow_id: workflow_id
+        workflow_id: workflow_id,
+        task_queue: task_queue,
+        args: ["Hello"]
       })
 
     Logger.info("Workflow run ID: #{execution.run_id}")
