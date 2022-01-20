@@ -22,12 +22,13 @@ defmodule Elixoral.MixProject do
   defp deps do
     [
       {:cowlib, "~> 2.9.0", override: true},
+      {:jason, "~> 1.3"},
       {:google_protos, "~> 0.2.0"},
       # {:grpc, "~> 0.3.1"},
       {:grpc, github: "elixir-grpc/grpc"},
       {:protobuf, "~> 0.9.0"},
       {:rustler, "~> 0.23.0"},
-      { :elixir_uuid, "~> 1.2" }
+      {:elixir_uuid, "~> 1.2"}
     ]
   end
 end
